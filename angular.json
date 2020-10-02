@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ng-window-opener": {
+    "demo": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ng-window-opener",
+            "outputPath": "dist/demo",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -123,6 +123,50 @@
           }
         }
       }
-    }},
-  "defaultProject": "ng-window-opener"
+    },
+    "ng-window-opener": {
+      "projectType": "library",
+      "root": "projects/ng-window-opener",
+      "sourceRoot": "projects/ng-window-opener/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/ng-window-opener/tsconfig.lib.json",
+            "project": "projects/ng-window-opener/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ng-window-opener/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ng-window-opener/src/test.ts",
+            "tsConfig": "projects/ng-window-opener/tsconfig.spec.json",
+            "karmaConfig": "projects/ng-window-opener/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ng-window-opener/tsconfig.lib.json",
+              "projects/ng-window-opener/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "ng-window-opener",
+  "cli": {
+    "analytics": "54185f34-96a7-4807-a229-3c3f2efcd910"
+  }
 }
